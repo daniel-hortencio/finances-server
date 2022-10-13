@@ -1,0 +1,410 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Finantial Api Documentation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/create-user": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "confirm_password": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "string"
+                  },
+                  "preferred_currency": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "John Doe",
+                  "email": "john-doe@mail.com",
+                  "password": "john123doe",
+                  "pconfirm": "john123doe",
+                  "language": "PT",
+                  "preferred_currency": "USD"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "409": {
+            "description": "USER_ALREADY_EXISTS"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id_user": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "language": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "INTERNAL_SERVER_ERROR"
+          }
+        }
+      },
+      "put": {
+        "tags": ["User"],
+        "summary": "Update User by Id",
+        "parameters": [
+          {
+            "name": "id_user",
+            "in": "query",
+            "description": "User Id",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "language": {
+                    "type": "string"
+                  },
+                  "preferred_currency": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "John Doe Edit",
+                  "password": "john123doe",
+                  "language": "ENG",
+                  "preferred_currency": "USD"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          },
+          "404": {
+            "description": "USER_NOT_FOUND"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete User by Id",
+        "parameters": [
+          {
+            "name": "id_user",
+            "in": "query",
+            "description": "User Id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          },
+          "404": {
+            "description": "USER_NOT_FOUND"
+          }
+        }
+      }
+    },
+    "/user/find-by-id": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get user by Id",
+        "parameters": [
+          {
+            "name": "id_user",
+            "in": "query",
+            "description": "User Id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "USER_NOT_FOUND"
+          }
+        }
+      }
+    },
+    "/user/find-by-email": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get user by Email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "User Email",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "language": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "USER_NOT_FOUND"
+          }
+        }
+      }
+    },
+    "/category": {
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Create Category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "background_color": {
+                    "type": "string"
+                  },
+                  "icon_color": {
+                    "type": "string"
+                  },
+                  "icon_name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Alimentação",
+                  "id_user": "7f937b3d-377b-4bfc-9eb7-b92e6c2e88d2",
+                  "background_color": "#000000",
+                  "icon_color": "ffffff",
+                  "icon_name": "FaCircle"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Category created"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Categories"],
+        "summary": "List Categories by User",
+        "parameters": [
+          {
+            "name": "id_user",
+            "in": "query",
+            "description": "User Id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id_category": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "icon": {
+                        "type": "string"
+                      },
+                      "id_user": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "USER_NOT_FOUND"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Categories"],
+        "summary": "Update Category",
+        "parameters": [
+          {
+            "name": "id_category",
+            "in": "query",
+            "description": "Category Id",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "background_color": {
+                    "type": "string"
+                  },
+                  "icon_color": {
+                    "type": "string"
+                  },
+                  "icon_name": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Alimentação",
+                  "background_color": "#000000",
+                  "icon_color": "ffffff",
+                  "icon_name": "FaCircle"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category updated"
+          },
+          "404": {
+            "description": "CATEGORY_NOT_FOUND"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Categories"],
+        "summary": "Delete Category by Id",
+        "parameters": [
+          {
+            "name": "id_category",
+            "in": "query",
+            "description": "User Id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted"
+          },
+          "404": {
+            "description": "CATEGORY_NOT_FOUND"
+          }
+        }
+      }
+    }
+  }
+}

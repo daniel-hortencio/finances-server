@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+//datasource db {
+//  provider = "postgresql"
+//  url      = env("DATABASE_URL")
+//}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Users {
+  id_user            String       @id @default(uuid())
+  name               String
+  email              String       @unique
+  password           String
+  language           String
+  created_at         DateTime
+  preferred_currency String
+  Categories         Categories[]
+  Accounts           Accounts[]
+
+  @@map("users")
+}
+
+model Categories {
+  id_category      String @id @default(uuid())
+  name             String
+  background_color String
+  icon_color       String
+  icon_name        String
+
+  user    Users  @relation(fields: [id_user], references: [id_user])
+  id_user String
+
+  @@map("categories")
+}
+
+model Accounts {
+  id_account  String   @id @default(uuid())
+  description String
+  value       Float
+  type        String
+  currency    String
+  id_category String
+  date        DateTime
+
+  user    Users  @relation(fields: [id_user], references: [id_user])
+  id_user String
+
+  @@map("accounts")
+}
+
+model RefreshToken {
+  id_refresh_token String @id @default(uuid())
+  id_user          String @unique
+  expiresIn        Int
+
+  @@map("refreshToken")
+}
