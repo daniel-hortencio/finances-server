@@ -1,3 +1,4 @@
+import { IGetExchangeDTO } from "modules/exchanges/dtos";
 import { Currency } from "../../../shared/enums/currencies";
 import { AccountType } from "../../../shared/types/Account";
 
@@ -12,4 +13,10 @@ type IGetAccountDTO = {
   id_category?: string;
 }
 
-export { IGetAccountDTO }
+type IGetMovementsDTO = {
+  year: number,
+  month: number,
+  movements: Array<IGetAccountDTO | IGetExchangeDTO>
+}
+
+export { IGetAccountDTO, IGetMovementsDTO }

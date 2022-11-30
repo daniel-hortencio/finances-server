@@ -68,7 +68,7 @@ class AccountsRepository implements IAccountsRepository {
       type,
       value,
       date,
-      id_category
+      id_category = ""
     }: IUpdateAccountDTO) {
 
     await prismaClient.accounts.update({
@@ -80,7 +80,7 @@ class AccountsRepository implements IAccountsRepository {
         currency,
         type,
         value,
-        date,
+        date: new Date(date),
         id_category
       }
     })

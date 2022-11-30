@@ -25,6 +25,7 @@ model Users {
   preferred_currency String
   Categories         Categories[]
   Accounts           Accounts[]
+  Exchange           Exchanges[]
 
   @@map("users")
 }
@@ -55,6 +56,20 @@ model Accounts {
   id_user String
 
   @@map("accounts")
+}
+
+model Exchanges {
+  id_exchange     String   @id @default(uuid())
+  input_value     Float
+  input_currency  String
+  output_value    Float
+  output_currency String
+  date            DateTime
+
+  user    Users  @relation(fields: [id_user], references: [id_user])
+  id_user String
+
+  @@map("exchanges")
 }
 
 model RefreshToken {

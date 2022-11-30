@@ -2,12 +2,14 @@ import { IAccountsRepository } from '../../../accounts/repositories/implementati
 import { IGetBalanceDTO } from '../../dtos/IGetBalanceDTO'
 import { Currency } from '../../../../shared/enums/currencies';
 import { inject, injectable } from 'tsyringe'
+import { IExchangesRepository } from 'modules/exchanges/repositories/implementations/IExchangesRepository';
 
 @injectable()
 class GetBalanceByUserUseCase {
   constructor(
     @inject("AccountsRepository")
-    private accountRepository: IAccountsRepository) { }
+    private accountRepository: IAccountsRepository
+  ) { }
 
   async execute(id_user: string): Promise<IGetBalanceDTO> {
 

@@ -34,6 +34,18 @@ CREATE TABLE "accounts" (
 );
 
 -- CreateTable
+CREATE TABLE "exchanges" (
+    "id_exchange" TEXT NOT NULL PRIMARY KEY,
+    "input_value" REAL NOT NULL,
+    "input_currency" TEXT NOT NULL,
+    "output_value" REAL NOT NULL,
+    "output_currency" TEXT NOT NULL,
+    "date" DATETIME NOT NULL,
+    "id_user" TEXT NOT NULL,
+    CONSTRAINT "exchanges_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "users" ("id_user") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
 CREATE TABLE "refreshToken" (
     "id_refresh_token" TEXT NOT NULL PRIMARY KEY,
     "id_user" TEXT NOT NULL,

@@ -8,6 +8,8 @@ import { AccountsRepository } from '../../modules/accounts/repositories/Accounts
 import { IAccountsRepository } from '../../modules/accounts/repositories/implementations/IAccountsRepository'
 import { RefreshTokenRepository } from '../../modules/auth/repositories/RefreshTokenRepository'
 import { IRefreshTokenRepository } from '../../modules/auth/repositories/implementations/IRefreshTokenRepository'
+import { IExchangesRepository } from '../../modules/exchanges/repositories/implementations/IExchangesRepository'
+import { ExchangesRepository } from '../../modules/exchanges/repositories/ExchangesRepository'
 
 container.registerSingleton<IUsersRepository>(
   "UsersRepository",
@@ -27,4 +29,9 @@ container.registerSingleton<IAccountsRepository>(
 container.registerSingleton<IRefreshTokenRepository>(
   "RefreshTokenRepository",
   RefreshTokenRepository
+)
+
+container.registerSingleton<IExchangesRepository>(
+  "ExchangesRepository",
+  ExchangesRepository
 )

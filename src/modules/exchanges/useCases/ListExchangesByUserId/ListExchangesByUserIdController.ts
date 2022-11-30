@@ -2,21 +2,21 @@ import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { FindUserByIdUseCase } from '../../../users/useCases/FindById/FindUserByIdUseCase';
 
-import { ListAccountsByUserIdUseCase } from "./ListAccountsByUserIdUseCase";
+import { ListExchangesByUserIdUseCase } from "./ListExchangesByUserIdUseCase";
 
-class ListCategoriesByUserIdController {
+class ListExchangesByUserIdController {
   async handle(req: Request, res: Response): Promise<any> {
     const { id_user } = req.auth
 
     const findUserByIdUseCase = container.resolve(FindUserByIdUseCase)
     await findUserByIdUseCase.execute(id_user as string)
 
-    const listAccountsByUserIdUseCase = container.resolve(ListAccountsByUserIdUseCase)
+    const listExchangesByUserIdUseCase = container.resolve(ListExchangesByUserIdUseCase)
 
-    const accounts = await listAccountsByUserIdUseCase.execute(`${id_user}`)
+    const exchanges = await listExchangesByUserIdUseCase.execute(id_user)
 
-    return res.status(200).json(accounts)
+    return res.status(200).json(exchanges)
   }
 }
 
-export default new ListCategoriesByUserIdController()
+export default new ListExchangesByUserIdController()
