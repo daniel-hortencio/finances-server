@@ -1,3 +1,3 @@
-export { ICreateUserDTO } from './ICreateUserDTO'
 export { IGetUserDTO } from './IGetUserDTO'
-export { IUpdateUserDTO } from './IUpdateUserDTO'
+export { IUpdateUserPreferencesDTO } from './IUpdateUserPreferencesDTO'
+export { IUpdateUserInfosDTO } from './IUpdateUserInfosDTO'

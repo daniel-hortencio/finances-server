@@ -1,14 +1,13 @@
 import { Router } from 'express'
-import CreateAccountController from '../../../../modules/exchanges/useCases/CreateExchange/CreateExchangeController'
-import DeleteAccountController from '../../../../modules/accounts/useCases/DeleteAccount/DeleteAccountController'
-import UpdateAccountController from '../../../../modules/accounts/useCases/UpdateAccount/UpdateAccountController'
-import ListExchangesByUserIdController from '../../../../modules/exchanges/useCases/ListExchangesByUserId/ListExchangesByUserIdController'
+import CreateExchangeController from '../../../../modules/exchanges/useCases/CreateExchange/CreateExchangeController'
+import DeleteExchangeController from '../../../../modules/exchanges/useCases/DeleteExchange/DeleteExchangeController'
+//import UpdateExchangeController from '../../../../modules/exchanges/useCases/UpdateExchange/UpdateExchangeController'
 
 const exchangesRoutes = Router()
 
-//exchangesRoutes.get('/', ListExchangesByUserIdController.handle)
-exchangesRoutes.post('/', CreateAccountController.handle)
-//exchangesRoutes.put('/', UpdateAccountController.handle)
-//exchangesRoutes.delete('/', DeleteAccountController.handle)
+exchangesRoutes.post('/', CreateExchangeController.handle)
+exchangesRoutes.delete('/', DeleteExchangeController.handle)
+//exchangesRoutes.put('/', UpdateExchangeController.handle)
+
 
 export { exchangesRoutes }

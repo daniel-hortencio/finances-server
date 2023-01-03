@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe';
-import { IUpdateUserDTO } from '../../dtos';
-import { UpdateUserUseCase } from "./UpdateUserUseCase";
+import { IUpdateUserPreferencesDTO } from '../../dtos';
+import { UpdateUserPreferencesUseCase } from "./UpdateUserPreferencesUseCase";
 
 interface UpdateUserRequest extends Request {
-  body: IUpdateUserDTO,
+  body: IUpdateUserPreferencesDTO,
   query: {
     id_user: string
   }
@@ -13,19 +13,15 @@ interface UpdateUserRequest extends Request {
 class UpdateUserController {
   async handle(req: UpdateUserRequest, res: Response) {
     const {
-      name,
-      password,
       language,
       preferred_currency
     } = req.body
-    const { id_user } = req.query
+    const { id_user } = req.auth
 
-    const updateUserUseCase = container.resolve(UpdateUserUseCase)
+    const updateUserPreferencesUseCase = container.resolve(UpdateUserPreferencesUseCase)
 
-    await updateUserUseCase.execute(id_user,
+    await updateUserPreferencesUseCase.execute(id_user,
       {
-        name,
-        password,
         language,
         preferred_currency
       })

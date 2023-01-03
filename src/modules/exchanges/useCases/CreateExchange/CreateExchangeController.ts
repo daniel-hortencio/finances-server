@@ -23,9 +23,9 @@ class CreateExchangeController {
     const findUserByIdUseCase = container.resolve(FindUserByIdUseCase)
     await findUserByIdUseCase.execute(id_user)
 
-    const createAccountUseCase = container.resolve(CreateExchangeUseCase)
+    const createExchangeUseCase = container.resolve(CreateExchangeUseCase)
 
-    await createAccountUseCase.execute({
+    await createExchangeUseCase.execute({
       input_value,
       input_currency,
       output_value,

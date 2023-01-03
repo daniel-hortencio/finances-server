@@ -57,6 +57,14 @@ class ExchangesRepository implements IExchangesRepository {
     })
   }
 
+  async delete(id_exchange: string) {
+    await prismaClient.exchanges.delete({
+      where: {
+        id_exchange
+      }
+    })
+  }
+
   /* async update(
     id_account: string,
     {
@@ -83,13 +91,7 @@ class ExchangesRepository implements IExchangesRepository {
     })
   }
 
-  async delete(id_account: string) {
-    await prismaClient.accounts.delete({
-      where: {
-        id_account
-      }
-    })
-  }
+  
 
   async deleteCategory(id_category: string) {
     await prismaClient.accounts.updateMany({

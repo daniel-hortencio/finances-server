@@ -2,8 +2,8 @@ import { prismaClient } from "../../../prisma";
 import { User } from "../entities/User";
 import { IUsersRepository } from "./implementations/IUsersRepository";
 import {
-  ICreateUserDTO,
-  IUpdateUserDTO
+  IUpdateUserInfosDTO,
+  IUpdateUserPreferencesDTO
 } from '../dtos'
 
 class UsersRepository implements IUsersRepository {
@@ -48,44 +48,36 @@ class UsersRepository implements IUsersRepository {
     return user
   }
 
-  async create({
-    email,
-    name,
-    password,
-    language,
-    preferred_currency
-  }: ICreateUserDTO) {
-    const newUser = new User({
-      email,
-      name,
-      password,
-      language,
-      preferred_currency
-    })
-
-    await prismaClient.users.create({
-      data: newUser
-    })
-  }
-
-  async update(
+  async updatePreferences(
     id_user: string,
     {
-      name,
-      password,
       language,
       preferred_currency
-    }: IUpdateUserDTO) {
+    }: IUpdateUserPreferencesDTO) {
 
     await prismaClient.users.update({
       where: {
         id_user
       },
       data: {
-        name,
-        password,
         language,
         preferred_currency
+      }
+    })
+  }
+
+  async updateInfos(
+    id_user: string,
+    {
+      name
+    }: IUpdateUserInfosDTO) {
+
+    await prismaClient.users.update({
+      where: {
+        id_user
+      },
+      data: {
+        name
       }
     })
   }

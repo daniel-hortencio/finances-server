@@ -4,7 +4,7 @@ import { FindUserByIdUseCase } from '../../../users/useCases/FindById/FindUserBy
 
 import { ListAccountsByUserIdUseCase } from "./ListAccountsByUserIdUseCase";
 
-class ListCategoriesByUserIdController {
+class ListAccountByUserIdController {
   async handle(req: Request, res: Response): Promise<any> {
     const { id_user } = req.auth
 
@@ -19,4 +19,4 @@ class ListCategoriesByUserIdController {
   }
 }
 
-export default new ListCategoriesByUserIdController()
+export default new ListAccountByUserIdController()

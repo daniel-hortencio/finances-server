@@ -1,39 +1,33 @@
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from "../../../../shared/errors/AppError";
-import { IUpdateUserDTO } from "../../dtos";
+import { IUpdateUserInfosDTO } from "../../dtos";
 import { USER_ERRORS } from "../../errors";
 import { IUsersRepository } from "../../repositories/implementations/IUsersRepository";
 
 @injectable()
-class UpdateUserUseCase {
+class UpdateUserInfosUseCase {
   constructor(
     @inject("UsersRepository")
     private userRepository: IUsersRepository) { }
 
   async execute(id_user: string,
     {
-      name,
-      password,
-      language,
-      preferred_currency
-    }: IUpdateUserDTO): Promise<void> {
+      name
+    }: IUpdateUserInfosDTO): Promise<void> {
     const userAlreadyExists = await this.userRepository.findById(id_user)
 
     if (!userAlreadyExists) {
       throw new AppError(USER_ERRORS.NOT_FOUND, 404)
     }
 
-    this.userRepository.update(
+    this.userRepository.updateInfos(
       id_user,
       {
-        name,
-        password,
-        language,
-        preferred_currency
+        name
       }
     )
   }
 }
 
-export { UpdateUserUseCase }
+export { UpdateUserInfosUseCase }
