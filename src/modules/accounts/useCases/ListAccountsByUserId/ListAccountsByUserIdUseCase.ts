@@ -21,7 +21,7 @@ class ListAccountsByUserIdUseCase {
     let movements_list: IGetMovementsDTO[] = []
 
     accounts.forEach((account) => {
-      const year = account.date.getFullYear()
+      const year = account.date.getUTCFullYear()
       const month = account.date.getUTCMonth()
 
       const statement_index = movements_list.findIndex(statement => statement.year === year && statement.month === month)
@@ -59,6 +59,8 @@ class ListAccountsByUserIdUseCase {
         }
       }
     })
+
+    console.log({ accounts, movements_list })
 
     return movements_list;
   }
