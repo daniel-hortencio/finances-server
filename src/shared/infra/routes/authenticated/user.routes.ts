@@ -6,6 +6,7 @@ import UpdateUserPreferencesController from '../../../../modules/users/useCases/
 import UpdateUserInfosController from '../../../../modules/users/useCases/UpdateUserInfos/UpdateUserInfosController'
 import DeleteUserController from '../../../../modules/users/useCases/DeleteUser/DeleteUserController'
 import GetBalanceByUserController from '../../../../modules/users/useCases/GetBalanceByUser/GetBalanceByUserController'
+import LogoutUserController from '../../../../modules/users/useCases/LogoutUser/LogoutUserController'
 
 const usersRoutes = Router()
 
@@ -16,5 +17,6 @@ usersRoutes.put('/preferences', UpdateUserPreferencesController.handle)
 usersRoutes.put('/infos', UpdateUserInfosController.handle)
 usersRoutes.delete('/', DeleteUserController.handle)
 usersRoutes.get('/balance', GetBalanceByUserController.handle)
+usersRoutes.post('/logout', LogoutUserController.handle)
 
 export { usersRoutes }

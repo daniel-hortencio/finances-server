@@ -1,7 +1,7 @@
 import { Language } from "shared/enums/languages";
 import { Currency } from "../../../shared/enums/currencies";
 
-type ICreateUserDTO = {
+type ICreateUserBodyRequest = {
   name: string;
   email: string;
   password: string;
@@ -10,4 +10,6 @@ type ICreateUserDTO = {
   preferred_currency: Currency;
 }
 
-export { ICreateUserDTO }
+type ICreateUserDTO = Omit<ICreateUserBodyRequest, "confirm_password">
+
+export { ICreateUserDTO, ICreateUserBodyRequest }

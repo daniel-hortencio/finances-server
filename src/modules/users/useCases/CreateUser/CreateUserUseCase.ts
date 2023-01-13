@@ -2,8 +2,8 @@ import { inject, injectable } from 'tsyringe'
 import { hash } from "bcrypt";
 
 import { AppError } from "../../../../shared/errors/AppError";
-import { ICreateUserDTO } from "../../dtos";
-import { IUsersRepository } from "../../../users/repositories/implementations/IUsersRepository";
+import { ICreateUserBodyRequest } from "../../dtos";
+import { IUsersRepository } from "../../repositories/implementations/IUsersRepository";
 import { CREATE_USER_ERRORS } from '../../errors';
 
 @injectable()
@@ -19,7 +19,7 @@ class CreateUserUseCase {
     confirm_password,
     language,
     preferred_currency
-  }: ICreateUserDTO): Promise<void> {
+  }: ICreateUserBodyRequest): Promise<void> {
     const userAlreadyExists = await this.userRepository.findByEmail(email)
 
     if (userAlreadyExists) {

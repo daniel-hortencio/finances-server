@@ -10,9 +10,17 @@ class ListAccountNamesSuggestByUserIdUseCase {
   ) { }
 
   async execute(id_user: string): Promise<string[]> {
+    let names_suggest: string[] = []
+
     const accounts = await this.accountsRepository.list(id_user)
 
-    return accounts.map(account => account.description);
+    accounts.forEach(account => {
+      if (!names_suggest.some(name_suggest => name_suggest === account.description as string)) {
+        names_suggest.push(account.description)
+      }
+    });
+
+    return names_suggest.sort();
   }
 }
 

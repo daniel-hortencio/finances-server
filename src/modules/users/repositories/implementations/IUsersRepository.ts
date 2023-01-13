@@ -1,7 +1,8 @@
 import { User } from '../../entities/User'
 import {
   IUpdateUserPreferencesDTO,
-  IUpdateUserInfosDTO
+  IUpdateUserInfosDTO,
+  ICreateUserDTO
 } from '../../dtos'
 
 interface IUsersRepository {
@@ -11,6 +12,7 @@ interface IUsersRepository {
   updatePreferences(id: string, body: IUpdateUserPreferencesDTO): Promise<void>;
   updateInfos(id: string, body: IUpdateUserInfosDTO): Promise<void>;
   delete(id: string): Promise<void>;
+  create(body: ICreateUserDTO): Promise<void>;
 }
 
 export { IUsersRepository }

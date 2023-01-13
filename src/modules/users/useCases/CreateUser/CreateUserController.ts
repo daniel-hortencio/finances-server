@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
-import { ICreateUserDTO } from '../../dtos';
+import { ICreateUserBodyRequest } from '../../dtos';
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
 export interface CreateUserRequest extends Request {
-  body: ICreateUserDTO
+  body: ICreateUserBodyRequest
 }
 
 class CreateUserController {

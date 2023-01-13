@@ -2,6 +2,7 @@ import { prismaClient } from "../../../prisma";
 import { User } from "../entities/User";
 import { IUsersRepository } from "./implementations/IUsersRepository";
 import {
+  ICreateUserDTO,
   IUpdateUserInfosDTO,
   IUpdateUserPreferencesDTO
 } from '../dtos'
@@ -26,6 +27,26 @@ class UsersRepository implements IUsersRepository {
     this.allUsers = await prismaClient.users.findMany()
 
     return this.allUsers
+  }
+
+  async create({
+    email,
+    name,
+    password,
+    language,
+    preferred_currency
+  }: ICreateUserDTO) {
+    const newUser = new User({
+      email,
+      name,
+      password,
+      language,
+      preferred_currency
+    })
+
+    await prismaClient.users.create({
+      data: newUser
+    })
   }
 
   async findByEmail(email: string) {

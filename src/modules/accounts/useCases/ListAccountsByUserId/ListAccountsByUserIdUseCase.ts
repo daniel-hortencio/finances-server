@@ -60,8 +60,6 @@ class ListAccountsByUserIdUseCase {
       }
     })
 
-    console.log({ accounts, movements_list })
-
     return movements_list;
   }
 }
