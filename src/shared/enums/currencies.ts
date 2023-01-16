@@ -1,9 +1,9 @@
 export enum Currency {
-  USD = "USD", // United States Dollar
-  BRL = "BRL", // Brazil Real
-  PYG = "PYG", // Paraguay Guarani
-  ARS = "ARS", // Argentina Peso
-  UYU = "UYU", // Uruguay Peso
-  EUR = "EUR", // Euro Member Countries
-  JPY = "JPY", // Japan Yen
+  US = "US", // United States Dollar
+  BR = "BR", // Brazil Real
+  PY = "PY", // Paraguay Guarani
+  ARS = "AR", // Argentina Peso
+  UYU = "UY", // Uruguay Peso
+  EUR = "EU", // Euro Member Countries
+  JPY = "JP", // Japan Yen
 }

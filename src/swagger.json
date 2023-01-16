@@ -40,7 +40,7 @@
                   "password": "john123doe",
                   "pconfirm": "john123doe",
                   "language": "PT",
-                  "preferred_currency": "USD"
+                  "preferred_currency": "US"
                 }
               }
             }
@@ -127,7 +127,7 @@
                   "name": "John Doe Edit",
                   "password": "john123doe",
                   "language": "ENG",
-                  "preferred_currency": "USD"
+                  "preferred_currency": "US"
                 }
               }
             }

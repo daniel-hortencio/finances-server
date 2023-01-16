@@ -16,7 +16,7 @@ class User {
     email,
     password,
     language = Language.ENG,
-    preferred_currency = Currency.USD
+    preferred_currency = Currency.US
   }: ICreateUserDTO) {
     this.name = name
     this.email = email
