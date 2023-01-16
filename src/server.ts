@@ -21,8 +21,10 @@ server.use(cors({
 
 server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-server.use("./netlify/functions/server", router)
+server.use("/.netlify/functions/server", router)
 
 server.use(ErrorHandler)
 
 server.listen(port, () => console.log(`Finantial server is running on port ${port}`))
+
+module.exports.handler = serverless(server)
