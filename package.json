@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child src/server.ts",
     "build": "./node_modules/.bin/netlify-lambda build src",
-    "start": "npx prisma migration deploy && ./node_modules/.bin/netlify-lambda serve src"
+    "start": "npx prisma migration deploy && ts-node src/index.ts && ./node_modules/.bin/netlify-lambda serve src"    
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
