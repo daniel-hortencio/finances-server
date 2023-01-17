@@ -18,7 +18,7 @@ server.use(cors({
   origin: "*"
 }))
 
-server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
+server.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 server.use(router)
 
