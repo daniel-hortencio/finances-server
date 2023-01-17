@@ -20,7 +20,7 @@ server.use(cors({
 
 server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-server.use("/.netlify/functions/server", router)
+server.use(router)
 
 server.use(ErrorHandler)
 
