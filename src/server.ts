@@ -1,7 +1,6 @@
 import "reflect-metadata"
 import express from 'express'
 import cors from 'cors'
-import serverless from 'serverless-http'
 import "express-async-errors"
 import { router } from './shared/infra/routes'
 import swaggerUi from 'swagger-ui-express'
@@ -26,5 +25,3 @@ server.use("/.netlify/functions/server", router)
 server.use(ErrorHandler)
 
 server.listen(port, () => console.log(`Finantial server is running on port ${port}`))
-
-module.exports.handler = serverless(server)
