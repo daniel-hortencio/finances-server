@@ -2,12 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "./build/api.js",
   "scripts": {
     "dev": "ts-node-dev --exit-child src/index.ts",
     "start": "node ./build/index.js",
-    "server": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve src",
-    "build": "tsc && ./node_modules/.bin/netlify-lambda serve build"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -31,9 +29,7 @@
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
-    "netlify-lambda": "^2.0.15",
     "reflect-metadata": "^0.1.13",
-    "serverless-http": "^3.1.1",
     "swagger-ui-express": "^4.5.0",
     "tsyringe": "^4.7.0"
   }
