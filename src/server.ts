@@ -8,8 +8,9 @@ import swaggerFile from './swagger.json'
 
 import './shared/container'
 import { ErrorHandler } from "./shared/errors/ErrorHandler"
+import { env } from "./shared/config/environments"
 
-const port = 3006
+const port = env.PORT
 
 const server = express()
 
