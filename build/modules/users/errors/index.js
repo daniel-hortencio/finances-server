@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CREATE_USER_ERRORS = exports.USER_ERRORS = void 0;
+var USER_ERRORS;
+(function (USER_ERRORS) {
+    USER_ERRORS["NOT_FOUND"] = "USER_NOT_FOUND";
+})(USER_ERRORS = exports.USER_ERRORS || (exports.USER_ERRORS = {}));
+var CREATE_USER_ERRORS;
+(function (CREATE_USER_ERRORS) {
+    CREATE_USER_ERRORS["PASSWORD_CONFIRMATION_DOES_NOT_MATCH"] = "PASSWORD_CONFIRMATION_DOES_NOT_MATCH";
+    CREATE_USER_ERRORS["ALREADY_EXISTS"] = "USER_ALREADY_EXISTS";
+})(CREATE_USER_ERRORS = exports.CREATE_USER_ERRORS || (exports.CREATE_USER_ERRORS = {}));

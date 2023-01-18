@@ -1,0 +1,25 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.usersRoutes = void 0;
+const express_1 = require("express");
+const ListUsersController_1 = __importDefault(require("../../../../modules/users/useCases/ListUsers/ListUsersController"));
+const FindUserByEmailController_1 = __importDefault(require("../../../../modules/users/useCases/FindByEmail/FindUserByEmailController"));
+const FindUserByIdController_1 = __importDefault(require("../../../../modules/users/useCases/FindById/FindUserByIdController"));
+const UpdateUserPreferentesController_1 = __importDefault(require("../../../../modules/users/useCases/UpdateUserPreferences/UpdateUserPreferentesController"));
+const UpdateUserInfosController_1 = __importDefault(require("../../../../modules/users/useCases/UpdateUserInfos/UpdateUserInfosController"));
+const DeleteUserController_1 = __importDefault(require("../../../../modules/users/useCases/DeleteUser/DeleteUserController"));
+const GetBalanceByUserController_1 = __importDefault(require("../../../../modules/users/useCases/GetBalanceByUser/GetBalanceByUserController"));
+const LogoutUserController_1 = __importDefault(require("../../../../modules/users/useCases/LogoutUser/LogoutUserController"));
+const usersRoutes = (0, express_1.Router)();
+exports.usersRoutes = usersRoutes;
+usersRoutes.get('/', ListUsersController_1.default.handle);
+usersRoutes.get('/find-by-email', FindUserByEmailController_1.default.handle);
+usersRoutes.get('/find-by-id', FindUserByIdController_1.default.handle);
+usersRoutes.put('/preferences', UpdateUserPreferentesController_1.default.handle);
+usersRoutes.put('/infos', UpdateUserInfosController_1.default.handle);
+usersRoutes.delete('/', DeleteUserController_1.default.handle);
+usersRoutes.get('/balance', GetBalanceByUserController_1.default.handle);
+usersRoutes.post('/logout', LogoutUserController_1.default.handle);
