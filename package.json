@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child src/server.ts",
     "start-old": "vercel dev",
-    "start": "nodemon src/index.ts",
+    "start": "nodemon src/server.ts",
     "deploy": "vercel deploy --prod && npx prisma migration deploy"
   },
   "devDependencies": {
