@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --exit-child src/api/index.ts",
-    "start": "node build/api/index.js",
-    "build": "tsc"
+    "start": "netlify deploy",
+    "build": "netlify-lambda build src",
+    "ts-check": "tsc --noEmit --lib ES2015 ./src/*.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
