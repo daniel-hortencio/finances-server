@@ -10,7 +10,7 @@ import './shared/container'
 import { ErrorHandler } from "./shared/errors/ErrorHandler"
 import { env } from "./shared/config/environments"
 
-const port = env.PORT
+const port = process.env.PORT
 
 const server = express()
 
