@@ -1,4 +1,4 @@
-import { IAccountsRepository } from 'modules/accounts/repositories/implementations/IAccountsRepository';
+import { ITransactionsRepository } from 'modules/transactions/repositories/implementations/ITransactionsRepository';
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from "../../../../shared/errors/AppError";
@@ -10,8 +10,8 @@ class DeleteUserUseCase {
   constructor(
     @inject("CategoriesRepository")
     private categoryRepository: ICategoriesRepository,
-    @inject("AccountsRepository")
-    private accountsRepository: IAccountsRepository
+    @inject("TransactionsRepository")
+    private transactionsRepository: ITransactionsRepository
   ) { }
 
   async execute(id_category: string): Promise<void> {
@@ -21,7 +21,7 @@ class DeleteUserUseCase {
       throw new AppError(CATEGORY_ERRORS.ALREADY_EXISTS, 409)
     }
 
-    await this.accountsRepository.deleteCategory(id_category)
+    await this.transactionsRepository.deleteCategory(id_category)
 
     await this.categoryRepository.delete(id_category)
   }

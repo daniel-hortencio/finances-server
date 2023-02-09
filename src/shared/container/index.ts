@@ -4,8 +4,8 @@ import { IUsersRepository } from '../../modules/users/repositories/implementatio
 import { UsersRepository } from '../../modules/users/repositories/UsersRepository'
 import { ICategoriesRepository } from '../../modules/categories/repositories/implementations/ICategoriesRepository'
 import { CategoriesRepository } from '../../modules/categories/repositories/CategoriesRepository'
-import { AccountsRepository } from '../../modules/accounts/repositories/AccountsRepository'
-import { IAccountsRepository } from '../../modules/accounts/repositories/implementations/IAccountsRepository'
+import { TransactionsRepository } from '../../modules/transactions/repositories/TransactionsRepository'
+import { ITransactionsRepository } from '../../modules/transactions/repositories/implementations/ITransactionsRepository'
 import { RefreshTokenRepository } from '../../modules/auth/repositories/RefreshTokenRepository'
 import { IRefreshTokenRepository } from '../../modules/auth/repositories/implementations/IRefreshTokenRepository'
 import { IExchangesRepository } from '../../modules/exchanges/repositories/implementations/IExchangesRepository'
@@ -21,9 +21,9 @@ container.registerSingleton<ICategoriesRepository>(
   CategoriesRepository
 )
 
-container.registerSingleton<IAccountsRepository>(
-  "AccountsRepository",
-  AccountsRepository
+container.registerSingleton<ITransactionsRepository>(
+  "TransactionsRepository",
+  TransactionsRepository
 )
 
 container.registerSingleton<IRefreshTokenRepository>(

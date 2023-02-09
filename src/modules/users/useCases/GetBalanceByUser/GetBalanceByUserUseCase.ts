@@ -1,4 +1,4 @@
-import { IAccountsRepository } from '../../../accounts/repositories/implementations/IAccountsRepository';
+import { ITransactionsRepository } from '../../../transactions/repositories/implementations/ITransactionsRepository';
 import { IGetBalanceDTO } from '../../dtos/IGetBalanceDTO'
 import { Currency } from '../../../../shared/enums/currencies';
 import { inject, injectable } from 'tsyringe'
@@ -7,33 +7,33 @@ import { IExchangesRepository } from 'modules/exchanges/repositories/implementat
 @injectable()
 class GetBalanceByUserUseCase {
   constructor(
-    @inject("AccountsRepository")
-    private accountRepository: IAccountsRepository
+    @inject("TransactionsRepository")
+    private transactionRepository: ITransactionsRepository
   ) { }
 
   async execute(id_user: string): Promise<IGetBalanceDTO> {
 
-    const accounts = await this.accountRepository.list(id_user)
+    const transactions = await this.transactionRepository.list(id_user)
 
     const balance: IGetBalanceDTO = {
       id_user,
       balances: []
     }
 
-    accounts.forEach(account => {
-      const account_value = account.type === "credit" ? account.value : (-1) * account.value
+    transactions.forEach(transaction => {
+      const transaction_value = transaction.type === "credit" ? transaction.value : (-1) * transaction.value
 
       const balanceIndex = balance
         .balances
-        .findIndex(balance => balance.currency === account.currency)
+        .findIndex(balance => balance.currency === transaction.currency)
 
       if (balanceIndex < 0) {
         balance.balances.push({
-          value: account_value,
-          currency: account.currency
+          value: transaction_value,
+          currency: transaction.currency
         })
       } else {
-        balance.balances[balanceIndex].value = balance.balances[balanceIndex].value + account_value
+        balance.balances[balanceIndex].value = balance.balances[balanceIndex].value + transaction_value
       }
     })
 

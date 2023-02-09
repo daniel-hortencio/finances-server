@@ -66,7 +66,7 @@ class ExchangesRepository implements IExchangesRepository {
   }
 
   /* async update(
-    id_account: string,
+    id_transaction: string,
     {
       description,
       currency,
@@ -74,11 +74,11 @@ class ExchangesRepository implements IExchangesRepository {
       value,
       date,
       id_category = ""
-    }: IUpdateAccountDTO) {
+    }: IUpdateTransactionDTO) {
 
-    await prismaClient.accounts.update({
+    await prismaClient.transactions.update({
       where: {
-        id_account
+        id_transaction
       },
       data: {
         description,
@@ -94,7 +94,7 @@ class ExchangesRepository implements IExchangesRepository {
   
 
   async deleteCategory(id_category: string) {
-    await prismaClient.accounts.updateMany({
+    await prismaClient.transactions.updateMany({
       where: {
         id_category
       },
