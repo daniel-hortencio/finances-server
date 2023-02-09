@@ -4,10 +4,7 @@ import { IUpdateUserInfosDTO } from '../../dtos';
 import { UpdateUserInfosUseCase } from "./UpdateUserInfosUseCase";
 
 interface UpdateUserRequest extends Request {
-  body: IUpdateUserInfosDTO,
-  query: {
-    id_user: string
-  }
+  body: IUpdateUserInfosDTO
 }
 
 class UpdateUserController {
@@ -16,6 +13,8 @@ class UpdateUserController {
       name
     } = req.body
     const { id_user } = req.auth
+
+    console.log({ req })
 
     const updateUserInfosUseCase = container.resolve(UpdateUserInfosUseCase)
 

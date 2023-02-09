@@ -5,9 +5,6 @@ import { UpdateUserPreferencesUseCase } from "./UpdateUserPreferencesUseCase";
 
 interface UpdateUserRequest extends Request {
   body: IUpdateUserPreferencesDTO,
-  query: {
-    id_user: string
-  }
 }
 
 class UpdateUserController {

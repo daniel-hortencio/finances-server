@@ -4,14 +4,14 @@ import { container } from 'tsyringe'
 import { FindUserByIdUseCase } from "./FindUserByIdUseCase";
 
 export interface FindUserByIdRequest extends Request {
-  query: {
+  params: {
     id_user: string
   }
 }
 
 class FindUserByIdController {
   async handle(req: FindUserByIdRequest, res: Response) {
-    const { id_user } = req.auth
+    const { id_user } = req.params
 
     const findUserByIdUseCase = container.resolve(FindUserByIdUseCase)
 

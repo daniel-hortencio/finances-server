@@ -4,14 +4,14 @@ import { container } from 'tsyringe'
 import { FindUserByEmailUseCase } from "./FindUserByEmailUseCase";
 
 export interface FindUserByEmailRequest extends Request {
-  query: {
+  params: {
     email: string
   }
 }
 
 class FindUserByEmailController {
   async handle(req: FindUserByEmailRequest, res: Response) {
-    const { email } = req.query
+    const { email } = req.params
 
     const findUserByEmailUseCase = container.resolve(FindUserByEmailUseCase)
 

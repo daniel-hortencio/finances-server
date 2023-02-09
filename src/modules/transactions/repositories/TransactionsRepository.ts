@@ -87,7 +87,7 @@ class TransactionsRepository implements ITransactionsRepository {
   }
 
   async delete(id_transaction: string) {
-    await prismaClient.transaction.delete({
+    await prismaClient.transactions.delete({
       where: {
         id_transaction
       }
