@@ -21,9 +21,6 @@ class CreateTransactionController {
     } = req.body
     const { id_user } = req.auth
 
-    const findUserByIdUseCase = container.resolve(FindUserByIdUseCase)
-    await findUserByIdUseCase.execute(id_user)
-
     const createTransactionUseCase = container.resolve(CreateTransactionUseCase)
 
     await createTransactionUseCase.execute({

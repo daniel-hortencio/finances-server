@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 
 import { AppError } from "../../../../shared/errors/AppError";
 import { ICreateUserBodyRequest } from "../../dtos";
@@ -7,7 +7,7 @@ import { IUsersRepository } from "../../repositories/implementations/IUsersRepos
 import { CREATE_USER_ERRORS } from '../../errors';
 
 @injectable()
-class CreateUserUseCase {
+class RegisterUserUseCase {
   constructor(
     @inject("UsersRepository")
     private userRepository: IUsersRepository) { }
@@ -42,4 +42,4 @@ class CreateUserUseCase {
   }
 }
 
-export { CreateUserUseCase }
+export { RegisterUserUseCase }

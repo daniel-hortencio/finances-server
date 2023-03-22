@@ -1,7 +1,6 @@
 import { Currency } from '../../../shared/enums/currencies';
 import { Language } from '../../../shared/enums/languages';
 import { ICreateUserDTO } from '../dtos';
-
 class User {
   id_user?: string;
   name: string;

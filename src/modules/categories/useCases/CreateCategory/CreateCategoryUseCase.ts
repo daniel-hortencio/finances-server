@@ -17,6 +17,7 @@ class CreateCategoryUseCase {
     icon_color,
     icon_name,
     id_user,
+    type
   }: ICreateCategoryDTO): Promise<void> {
     const categoryAlreadyExists = await this.categoryRepository.findByName(id_user, name)
 
@@ -30,6 +31,7 @@ class CreateCategoryUseCase {
       icon_color,
       icon_name,
       id_user,
+      type
     })
   }
 }

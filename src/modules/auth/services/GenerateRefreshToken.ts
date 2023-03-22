@@ -9,9 +9,9 @@ class GenerateRefreshToken {
     private refreshTokenRepository: IRefreshTokenRepository) { }
 
   async execute(id_user: string): Promise<IGetRefreshTokenDTO> {
-    const expiresIn = dayjs().add(1, 'day').unix()
+    const expires_in = dayjs().add(1, 'day').unix()
 
-    const refreshToken = await this.refreshTokenRepository.create(id_user, expiresIn)
+    const refreshToken = await this.refreshTokenRepository.create(id_user, expires_in)
 
     return refreshToken
   }

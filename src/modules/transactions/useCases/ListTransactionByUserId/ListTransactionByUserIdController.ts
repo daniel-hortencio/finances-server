@@ -8,9 +8,6 @@ class ListTransactionByUserIdController {
   async handle(req: Request, res: Response): Promise<any> {
     const { id_user } = req.auth
 
-    const findUserByIdUseCase = container.resolve(FindUserByIdUseCase)
-    await findUserByIdUseCase.execute(id_user as string)
-
     const listTransactionsByUserIdUseCase = container.resolve(ListTransactionsByUserIdUseCase)
 
     const transactions = await listTransactionsByUserIdUseCase.execute(`${id_user}`)

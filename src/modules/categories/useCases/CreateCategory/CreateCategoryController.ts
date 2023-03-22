@@ -14,7 +14,8 @@ class CreateUserController {
       name,
       background_color,
       icon_color,
-      icon_name
+      icon_name,
+      type
     } = req.body
     const { id_user } = req.auth
 
@@ -25,7 +26,8 @@ class CreateUserController {
       id_user,
       background_color,
       icon_color,
-      icon_name
+      icon_name,
+      type
     })
 
     return res.status(201).send()

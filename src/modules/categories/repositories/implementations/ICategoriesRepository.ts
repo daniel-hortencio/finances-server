@@ -10,7 +10,8 @@ interface ICategoriesRepository {
   findByName(id_user: string, name: string): Promise<Category | null>;
   create(body: ICreateCategoryDTO): Promise<void>;
   update(id_category: string, body: IUpdateCategoryDTO): Promise<void>;
-  delete(id_category: string): Promise<void>;
+  deleteById(id_category: string): Promise<void>;
+  deleteAllByUserId(id_user: string): Promise<void>;
 }
 
 export { ICategoriesRepository }

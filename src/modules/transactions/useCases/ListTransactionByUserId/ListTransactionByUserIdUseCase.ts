@@ -21,8 +21,9 @@ class ListTransactionsByUserIdUseCase {
     let movements_list: IGetMovementsDTO[] = []
 
     transactions.forEach((transaction) => {
-      const year = transaction.date.getUTCFullYear()
-      const month = transaction.date.getUTCMonth()
+      const date = new Date(transaction.date)
+      const year = date.getUTCFullYear()
+      const month = date.getUTCMonth()
 
       const statement_index = movements_list.findIndex(statement => statement.year === year && statement.month === month)
 
@@ -38,8 +39,9 @@ class ListTransactionsByUserIdUseCase {
     })
 
     exchanges.forEach((exchange) => {
-      const year = exchange.date.getFullYear()
-      const month = exchange.date.getUTCMonth()
+      const date = new Date(exchange.date)
+      const year = date.getUTCFullYear()
+      const month = date.getUTCMonth()
 
       const statement_index = movements_list.findIndex(statement => statement.year === year && statement.month === month)
 

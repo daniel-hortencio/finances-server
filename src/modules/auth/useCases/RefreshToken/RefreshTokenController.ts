@@ -5,7 +5,7 @@ import { container } from 'tsyringe';
 import { RefreshTokenUseCase } from "./RefreshTokenUseCase";
 
 export interface RefreshTokenRequest extends Request {
-  query: Omit<IRefreshTokenDTO, "expiresIn">
+  query: Omit<IRefreshTokenDTO, "expires_in">
 }
 
 class RefreshTokenController {

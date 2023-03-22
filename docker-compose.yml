@@ -1,0 +1,26 @@
+# Definir versão do compose
+version: "3"
+services:
+  db-finances:
+    container_name: finances_db_postgres
+    image: postgres:alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: finances_admin
+      POSTGRES_PASSWORD: finances_password
+      POSTGRES_DB: finances_db
+#   server:
+#     # Build informa a localização do Dockerfile
+#     build: .
+#     container_name: finances_server
+#     # Comando que queremos executar assim que a aplicação subir
+#     command: npm run dev
+#     # Definir redirecionamento de portas
+#     ports:
+#       - 3003:3003
+#     # Definir de qual pasta do nosso projeto para qual pasta(WORKDIR) queremos refletir as alterações. Ex: [pasta_do_projeto]:[pasta_do_docker]
+#     volumes:
+#       - .:/finances/server
+

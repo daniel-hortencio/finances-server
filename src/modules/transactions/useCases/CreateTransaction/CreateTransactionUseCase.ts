@@ -6,7 +6,7 @@ import { ITransactionsRepository } from "../../repositories/implementations/ITra
 @injectable()
 class CreateTransactionUseCase {
   constructor(
-    @inject("TransactionRepository")
+    @inject("TransactionsRepository")
     private transactionsRepository: ITransactionsRepository) { }
 
   async execute({

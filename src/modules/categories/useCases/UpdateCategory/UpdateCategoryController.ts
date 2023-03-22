@@ -16,22 +16,24 @@ class UpdateUserController {
       name,
       icon_name,
       background_color,
-      icon_color
+      icon_color,
+      type
     } = req.body
 
-    const {
-      id_category
-    } = req.query
+    const { id_user } = req.auth
+    const { id_category } = req.params
 
     const updateUserUseCase = container.resolve(UpdateUserUseCase)
 
     await updateUserUseCase.execute(
+      id_user,
       id_category,
       {
         name,
         icon_name,
         background_color,
-        icon_color
+        icon_color,
+        type
       })
 
     return res.status(200).send()

@@ -5,13 +5,14 @@ import "express-async-errors"
 import { router } from './shared/infra/routes'
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from './swagger.json'
+import dotenv from 'dotenv'
 
 import './shared/container'
 import { ErrorHandler } from "./shared/errors/ErrorHandler"
-
-const port = process.env.PORT
+import { Environments } from "./shared/config/environments"
 
 const api = express()
+dotenv.config()
 
 api.use(express.json())
 api.use(cors({
@@ -21,7 +22,10 @@ api.use(cors({
 api.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 api.use(router)
+api.use('/', async (req, res) => {
+  res.send(`Finantial server is up!`)
+})
 
 api.use(ErrorHandler)
 
-api.listen(port, () => console.log(`Finantial server is running on port ${port}`))
+api.listen(Environments.API_PORT, () => console.log(`Finantial server is running on port ${Environments.API_PORT}`))

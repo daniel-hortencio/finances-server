@@ -6,8 +6,8 @@ import {
 } from '../../dtos'
 
 interface IUsersRepository {
-  findById(id: string): Promise<User | null>;
-  findByEmail(email: string): Promise<User | null>;
+  findById(id: string): Promise<User | undefined>;
+  findByEmail(email: string): Promise<User | undefined>;
   list(): Promise<User[]>;
   updatePreferences(id: string, body: IUpdateUserPreferencesDTO): Promise<void>;
   updateInfos(id: string, body: IUpdateUserInfosDTO): Promise<void>;

@@ -2,9 +2,11 @@ import { Request, Response, NextFunction } from 'express'
 import { JwtPayload, verify } from 'jsonwebtoken'
 import { AUTH_ERRORS } from '../../../../../modules/auth/errors'
 import { AppError } from '../../../../errors/AppError'
-import { env } from '../../../../config/environments'
+import { Environments } from '../../../../config/environments'
+import { container } from 'tsyringe'
+import { IUsersRepository } from 'modules/users/repositories/implementations/IUsersRepository'
 
-export function authMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
   const { auth = "" } = req.headers
 
   if (!auth) {
@@ -19,7 +21,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
 
   let is_valid_token: string | JwtPayload | undefined
 
-  verify(token as string, env.JWT_AUTH_SECRET, (err, valid) => {
+  verify(token as string, Environments.JWT_AUTH_SECRET, (err, valid) => {
     if (err?.message) {
       switch (err?.message) {
         case "jwt expired":
@@ -35,6 +37,12 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
 
     is_valid_token = valid
   })
+
+  const user_repository = container.resolve<IUsersRepository>('UsersRepository');
+
+  const user_exists = await user_repository.findById(is_valid_token?.sub as string)
+
+  if (!user_exists) throw new AppError(AUTH_ERRORS.TOKEN_IS_INVALID, 401);
 
   req.auth = {
     id_user: is_valid_token?.sub as string

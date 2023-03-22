@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-import { env } from '../../../shared/config/environments';
+import { Environments } from '../../../shared/config/environments';
 
 class GenerateToken {
   constructor() { }
@@ -11,7 +11,7 @@ class GenerateToken {
 
     const token = jwt.sign(
       {},
-      env.JWT_AUTH_SECRET,
+      Environments.JWT_AUTH_SECRET,
       {
         subject: id_user,
         expiresIn: hour,

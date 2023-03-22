@@ -12,13 +12,7 @@ class ListUsersUseCase {
   async execute(): Promise<IGetUserDTO[]> {
     const users = await this.usersRepository.list()
 
-    const usersWithoutPassword = users.map(user => {
-      const { id_user, name, email, language, preferred_currency, created_at } = user
-
-      return { id_user, name, email, language, preferred_currency, created_at }
-    })
-
-    return usersWithoutPassword;
+    return users;
   }
 }
 

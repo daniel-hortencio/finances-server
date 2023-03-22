@@ -1,4 +1,4 @@
-import { prismaClient } from "../../../prisma";
+import { knex } from "../../../shared/config/database";
 import { Category } from "../entities/Category";
 import { ICategoriesRepository } from "./implementations/ICategoriesRepository";
 import {
@@ -8,49 +8,32 @@ import {
 
 class CategoriesRepository implements ICategoriesRepository {
   private allCategories: Category[];
-  private static INSTANCE: CategoriesRepository;
+  private readonly table_name = 'category'
 
   constructor() {
     this.allCategories = []
   }
 
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository()
-    }
-
-    return CategoriesRepository.INSTANCE
-  }
-
   async list(id_user: string) {
-    this.allCategories = await prismaClient.categories.findMany({
-      where: {
-        id_user
-      }
-    })
+    this.allCategories = await knex(this.table_name)
+      .where('id_user', id_user)
+      .select()
 
     return this.allCategories
   }
 
   async findById(id_category: string) {
-    const category = await prismaClient.categories.findFirst({
-      where: {
-        id_category
-      }
-    })
+    const category = await knex(this.table_name)
+      .where('id_category', id_category)
+      .first()
 
     return category
   }
 
   async findByName(id_user: string, name: string): Promise<Category | null> {
-    const category = await prismaClient.categories.findFirst({
-      where: {
-        AND: {
-          id_user,
-          name
-        }
-      }
-    })
+    const category = await knex(this.table_name)
+      .where({ id_user, name })
+      .first()
 
     return category
   }
@@ -60,18 +43,16 @@ class CategoriesRepository implements ICategoriesRepository {
     name,
     icon_name,
     background_color,
-    icon_color
+    icon_color,
+    type
   }: ICreateCategoryDTO) {
-    const newCategory = new Category({
+    await knex(this.table_name).insert({
       name,
       icon_name,
       background_color,
       icon_color,
-      id_user
-    })
-
-    await prismaClient.categories.create({
-      data: newCategory
+      id_user,
+      type
     })
   }
 
@@ -81,28 +62,31 @@ class CategoriesRepository implements ICategoriesRepository {
       name,
       icon_name,
       background_color,
-      icon_color
+      icon_color,
+      type
     }: IUpdateCategoryDTO) {
 
-    await prismaClient.categories.update({
-      where: {
-        id_category
-      },
-      data: {
+    await knex(this.table_name)
+      .where('id_category', id_category)
+      .update({
         name,
         icon_name,
         background_color,
-        icon_color
-      }
-    })
+        icon_color,
+        type
+      })
   }
 
-  async delete(id_category: string) {
-    await prismaClient.categories.delete({
-      where: {
-        id_category
-      }
-    })
+  async deleteById(id_category: string) {
+    await knex(this.table_name)
+      .where('id_category', id_category)
+      .del()
+  }
+
+  async deleteAllByUserId(id_user: string) {
+    await knex(this.table_name)
+      .where('id_user', id_user)
+      .del()
   }
 }
 

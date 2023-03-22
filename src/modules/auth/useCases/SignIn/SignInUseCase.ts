@@ -1,6 +1,6 @@
 
 import { inject, injectable } from 'tsyringe'
-import { compare } from 'bcrypt'
+import { compare } from 'bcryptjs'
 
 import { IUsersRepository } from '../../../users/repositories/implementations/IUsersRepository';
 import { ISignInUserDTO } from '../../dtos';

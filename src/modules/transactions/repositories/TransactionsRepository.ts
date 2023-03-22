@@ -1,4 +1,4 @@
-import { prismaClient } from "../../../prisma";
+import { knex } from "../../../shared/config/database";
 import { Transaction } from "../entities/Transaction";
 import { ITransactionsRepository } from "./implementations/ITransactionsRepository";
 import {
@@ -9,31 +9,27 @@ import { IGetTransactionDTO } from "../dtos/IGetTransactionDTO";
 
 class TransactionsRepository implements ITransactionsRepository {
   private allTransactions: Transaction[];
-  private static INSTANCE: TransactionsRepository;
+  private readonly table_name = 'transaction'
 
   constructor() {
     this.allTransactions = []
   }
 
-  public static getInstance(): TransactionsRepository {
-    if (!TransactionsRepository.INSTANCE) {
-      TransactionsRepository.INSTANCE = new TransactionsRepository()
-    }
-
-    return TransactionsRepository.INSTANCE
-  }
-
   async list(id_user: string) {
-    this.allTransactions = await prismaClient.transactions.findMany({
-      where: {
-        id_user
-      },
-      orderBy: {
-        date: 'desc'
-      }
-    })
+    this.allTransactions = await knex(this.table_name)
+      .where('id_user', id_user)
+      .select()
+      .orderBy('date', 'desc')
 
     return this.allTransactions as IGetTransactionDTO[]
+  }
+
+  async findById(id_transaction: string) {
+    const transaction = await knex(this.table_name)
+      .where('id_transaction', id_transaction)
+      .first()
+
+    return transaction
   }
 
   async create({
@@ -45,7 +41,7 @@ class TransactionsRepository implements ITransactionsRepository {
     id_user,
     id_category
   }: ICreateTransactionDTO) {
-    const newTransaction = new Transaction({
+    await knex(this.table_name).insert({
       description,
       currency,
       type,
@@ -53,10 +49,6 @@ class TransactionsRepository implements ITransactionsRepository {
       date,
       id_user,
       id_category
-    })
-
-    await prismaClient.transactions.create({
-      data: newTransaction
     })
   }
 
@@ -68,41 +60,51 @@ class TransactionsRepository implements ITransactionsRepository {
       type,
       value,
       date,
-      id_category = ""
+      id_category = undefined
     }: IUpdateTransactionDTO) {
 
-    await prismaClient.transactions.update({
-      where: {
-        id_transaction
-      },
-      data: {
+    console.log("Repositório:", {
+      id_transaction,
+
+      description,
+      currency,
+      type,
+      value,
+      date,
+      id_category
+
+    })
+
+    await knex(this.table_name)
+      .where('id_transaction', id_transaction)
+      .update({
         description,
         currency,
         type,
         value,
-        date: new Date(date),
+        date,
         id_category
-      }
-    })
+      })
   }
 
-  async delete(id_transaction: string) {
-    await prismaClient.transactions.delete({
-      where: {
-        id_transaction
-      }
-    })
+  async deleteById(id_transaction: string) {
+    await knex(this.table_name)
+      .where('id_transaction', id_transaction)
+      .del()
   }
 
   async deleteCategory(id_category: string) {
-    await prismaClient.transactions.updateMany({
-      where: {
-        id_category
-      },
-      data: {
-        id_category: ""
-      }
-    })
+    await knex(this.table_name)
+      .where('id_category', id_category)
+      .update({
+        id_category: null
+      })
+  }
+
+  async deleteAllByUserId(id_user: string) {
+    await knex(this.table_name)
+      .where('id_user', id_user)
+      .del()
   }
 }
 

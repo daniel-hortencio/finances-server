@@ -8,7 +8,7 @@ const categoriesRoutes = Router()
 
 categoriesRoutes.get('/', ListCategoriesByUserIdController.handle)
 categoriesRoutes.post('/', CreateUserController.handle)
-categoriesRoutes.put('/', UpdateCategoryController.handle)
-categoriesRoutes.delete('/', DeleteCategoryController.handle)
+categoriesRoutes.put('/:id_category', UpdateCategoryController.handle)
+categoriesRoutes.delete('/:id_category', DeleteCategoryController.handle)
 
 export { categoriesRoutes }

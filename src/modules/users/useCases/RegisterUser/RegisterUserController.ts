@@ -2,14 +2,14 @@ import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
 import { ICreateUserBodyRequest } from '../../dtos';
-import { CreateUserUseCase } from "./CreateUserUseCase";
+import { RegisterUserUseCase } from "./RegisterUserUseCase";
 
-export interface CreateUserRequest extends Request {
+export interface RegisterUserRequest extends Request {
   body: ICreateUserBodyRequest
 }
 
-class CreateUserController {
-  async handle(req: CreateUserRequest, res: Response) {
+class RegisterUserController {
+  async handle(req: RegisterUserRequest, res: Response) {
     const {
       email,
       name,
@@ -19,9 +19,9 @@ class CreateUserController {
       preferred_currency
     } = req.body
 
-    const createUserUseCase = container.resolve(CreateUserUseCase)
+    const registerUserUseCase = container.resolve(RegisterUserUseCase)
 
-    await createUserUseCase.execute({
+    await registerUserUseCase.execute({
       email,
       name,
       password,
@@ -34,4 +34,4 @@ class CreateUserController {
   }
 }
 
-export default new CreateUserController()
+export default new RegisterUserController()

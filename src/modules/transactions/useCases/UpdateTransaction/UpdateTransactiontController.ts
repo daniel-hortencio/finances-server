@@ -23,10 +23,7 @@ class UpdateTransactionController {
       id_category
     } = req.body
     const { id_user } = req.auth
-    const { id_transaction } = req.query
-
-    const findUserByIdUseCase = container.resolve(FindUserByIdUseCase)
-    await findUserByIdUseCase.execute(id_user)
+    const { id_transaction } = req.params
 
     const updateTransactionUseCase = container.resolve(UpdateTransactionUseCase)
 
@@ -36,6 +33,7 @@ class UpdateTransactionController {
       type,
       currency,
       date,
+      id_user,
       id_category,
       id_transaction
     })

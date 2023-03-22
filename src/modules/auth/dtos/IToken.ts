@@ -1,4 +1,4 @@
 export type IToken = {
   id_token: string,
-  expiresIn: number
+  expires_in: number
 }

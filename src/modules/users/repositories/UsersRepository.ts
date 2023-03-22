@@ -1,4 +1,3 @@
-import { prismaClient } from "../../../prisma";
 import { User } from "../entities/User";
 import { IUsersRepository } from "./implementations/IUsersRepository";
 import {
@@ -6,25 +5,27 @@ import {
   IUpdateUserInfosDTO,
   IUpdateUserPreferencesDTO
 } from '../dtos'
+import { knex } from "../../../shared/config/database";
 
 class UsersRepository implements IUsersRepository {
   private allUsers: User[];
-  private static INSTANCE: UsersRepository;
+  private readonly table_name = 'user'
 
   constructor() {
     this.allUsers = []
   }
 
-  public static getInstance(): UsersRepository {
-    if (!UsersRepository.INSTANCE) {
-      UsersRepository.INSTANCE = new UsersRepository()
-    }
-
-    return UsersRepository.INSTANCE
-  }
-
   async list() {
-    this.allUsers = await prismaClient.users.findMany()
+    this.allUsers = await knex.column([
+      "id_user",
+      "name",
+      "email",
+      "language",
+      "preferred_currency",
+      "created_at"
+    ])
+      .select()
+      .from(this.table_name)
 
     return this.allUsers
   }
@@ -36,35 +37,27 @@ class UsersRepository implements IUsersRepository {
     language,
     preferred_currency
   }: ICreateUserDTO) {
-    const newUser = new User({
+    await knex(this.table_name).insert({
       email,
       name,
       password,
       language,
       preferred_currency
     })
-
-    await prismaClient.users.create({
-      data: newUser
-    })
   }
 
   async findByEmail(email: string) {
-    const user = await prismaClient.users.findFirst({
-      where: {
-        email
-      }
-    })
+    const user = await knex(this.table_name)
+      .where('email', email)
+      .first()
 
     return user
   }
 
   async findById(id_user: string) {
-    const user = await prismaClient.users.findFirst({
-      where: {
-        id_user
-      }
-    })
+    const user = await knex(this.table_name)
+      .where('id_user', id_user)
+      .first()
 
     return user
   }
@@ -76,15 +69,12 @@ class UsersRepository implements IUsersRepository {
       preferred_currency
     }: IUpdateUserPreferencesDTO) {
 
-    await prismaClient.users.update({
-      where: {
-        id_user
-      },
-      data: {
+    await knex(this.table_name)
+      .where('id_user', id_user)
+      .update({
         language,
         preferred_currency
-      }
-    })
+      })
   }
 
   async updateInfos(
@@ -93,22 +83,17 @@ class UsersRepository implements IUsersRepository {
       name
     }: IUpdateUserInfosDTO) {
 
-    await prismaClient.users.update({
-      where: {
-        id_user
-      },
-      data: {
+    await knex(this.table_name)
+      .where('id_user', id_user)
+      .update({
         name
-      }
-    })
+      })
   }
 
   async delete(id_user: string) {
-    await prismaClient.users.delete({
-      where: {
-        id_user
-      }
-    })
+    await knex(this.table_name)
+      .where('id_user', id_user)
+      .del()
   }
 }
 

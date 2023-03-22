@@ -20,9 +20,6 @@ class CreateExchangeController {
     } = req.body
     const { id_user } = req.auth
 
-    const findUserByIdUseCase = container.resolve(FindUserByIdUseCase)
-    await findUserByIdUseCase.execute(id_user)
-
     const createExchangeUseCase = container.resolve(CreateExchangeUseCase)
 
     await createExchangeUseCase.execute({

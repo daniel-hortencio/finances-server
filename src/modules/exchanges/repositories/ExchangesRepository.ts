@@ -1,36 +1,24 @@
-import { prismaClient } from "../../../prisma";
+import { knex } from "../../../shared/config/database";
 import { Exchange } from "../entities/Exchange";
 import { IExchangesRepository } from "./implementations/IExchangesRepository";
 import {
-  ICreateExchangeDTO,
+  ICreateExchangeDTO, IUpdateExchangeDTO,
 } from '../dtos'
 import { IGetExchangeDTO } from "../dtos/IGetExchangeDTO";
 
 class ExchangesRepository implements IExchangesRepository {
   private allExchanges: Exchange[];
-  private static INSTANCE: ExchangesRepository;
+  private readonly table_name = 'exchange'
 
   constructor() {
     this.allExchanges = []
   }
 
-  public static getInstance(): ExchangesRepository {
-    if (!ExchangesRepository.INSTANCE) {
-      ExchangesRepository.INSTANCE = new ExchangesRepository()
-    }
-
-    return ExchangesRepository.INSTANCE
-  }
-
   async list(id_user: string) {
-    this.allExchanges = await prismaClient.exchanges.findMany({
-      where: {
-        id_user
-      },
-      orderBy: {
-        date: 'desc'
-      }
-    })
+    this.allExchanges = await knex(this.table_name)
+      .where('id_user', id_user)
+      .select()
+      .orderBy('date', 'desc')
 
     return this.allExchanges as IGetExchangeDTO[]
   }
@@ -43,7 +31,7 @@ class ExchangesRepository implements IExchangesRepository {
     date,
     id_user
   }: ICreateExchangeDTO) {
-    const newExchange = new Exchange({
+    await knex(this.table_name).insert({
       input_value,
       input_currency,
       output_value,
@@ -51,58 +39,48 @@ class ExchangesRepository implements IExchangesRepository {
       date,
       id_user
     })
-
-    await prismaClient.exchanges.create({
-      data: newExchange
-    })
   }
 
-  async delete(id_exchange: string) {
-    await prismaClient.exchanges.delete({
-      where: {
-        id_exchange
-      }
-    })
+  async findById(id_exchange: string) {
+    const exchange = await knex(this.table_name)
+      .where('id_exchange', id_exchange)
+      .first()
+
+    return exchange
   }
 
-  /* async update(
-    id_transaction: string,
+  async deleteById(id_exchange: string) {
+    await knex(this.table_name)
+      .where('id_exchange', id_exchange)
+      .del()
+  }
+
+  async deleteAllByUserId(id_user: string) {
+    await knex(this.table_name)
+      .where('id_user', id_user)
+      .del()
+  }
+
+  async update(
+    id_exchange: string,
     {
-      description,
-      currency,
-      type,
-      value,
-      date,
-      id_category = ""
-    }: IUpdateTransactionDTO) {
+      input_value,
+      input_currency,
+      output_value,
+      output_currency,
+      date
+    }: IUpdateExchangeDTO) {
 
-    await prismaClient.transactions.update({
-      where: {
-        id_transaction
-      },
-      data: {
-        description,
-        currency,
-        type,
-        value,
-        date: new Date(date),
-        id_category
-      }
-    })
+    await knex(this.table_name)
+      .where('id_exchange', id_exchange)
+      .update({
+        input_value,
+        input_currency,
+        output_value,
+        output_currency,
+        date
+      })
   }
-
-  
-
-  async deleteCategory(id_category: string) {
-    await prismaClient.transactions.updateMany({
-      where: {
-        id_category
-      },
-      data: {
-        id_category: ""
-      }
-    })
-  } */
 }
 
 export { ExchangesRepository }

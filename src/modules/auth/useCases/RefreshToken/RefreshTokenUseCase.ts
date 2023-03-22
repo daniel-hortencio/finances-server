@@ -13,7 +13,7 @@ class RefreshTokenUseCase {
     @inject("RefreshTokenRepository")
     private refreshTokenRepository: IRefreshTokenRepository) { }
 
-  async execute(body: any): Promise<{ token: string, expiresIn: number }> {
+  async execute(body: any): Promise<{ token: string, expires_in: number }> {
     const { id_refresh_token, id_user } = body
 
     const refreshTokenExists = await this.refreshTokenRepository.findById(id_refresh_token)
@@ -23,7 +23,7 @@ class RefreshTokenUseCase {
     }
 
     const now = new Date().getTime();
-    const refreshTokenHasExpired = now > refreshTokenExists.expiresIn * 1000
+    const refreshTokenHasExpired = now > refreshTokenExists.expires_in * 1000
 
     if (refreshTokenHasExpired) {
       await this.refreshTokenRepository.deleteByRefreshTokenId(id_refresh_token)
@@ -39,7 +39,7 @@ class RefreshTokenUseCase {
 
     const token = generateToken.execute(id_user)
 
-    return { token, expiresIn: refreshTokenExists.expiresIn }
+    return { token, expires_in: refreshTokenExists.expires_in }
   }
 }
 

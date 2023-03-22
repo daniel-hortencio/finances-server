@@ -1,7 +1,7 @@
 type IRefreshTokenDTO = {
   id_refresh_token: string;
   id_user: string;
-  expiresIn: number;
+  expires_in: number;
 }
 
 export { IRefreshTokenDTO }

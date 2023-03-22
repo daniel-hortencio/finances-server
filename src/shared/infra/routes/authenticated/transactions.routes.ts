@@ -10,7 +10,7 @@ const transactionsRoutes = Router()
 transactionsRoutes.get('/', ListTransactionsByUserIdController.handle)
 transactionsRoutes.get('/names-suggest', ListTransactionNamesSuggestByUserIdController.handle)
 transactionsRoutes.post('/', CreateTransactionController.handle)
-transactionsRoutes.put('/', UpdateTransactionController.handle)
-transactionsRoutes.delete('/', DeleteTransactionController.handle)
+transactionsRoutes.put('/:id_transaction', UpdateTransactionController.handle)
+transactionsRoutes.delete('/:id_transaction', DeleteTransactionController.handle)
 
 export { transactionsRoutes }
