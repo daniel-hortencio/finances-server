@@ -10,11 +10,7 @@ class DeleteTransactionUseCase {
     @inject("TransactionsRepository")
     private transactionRepository: ITransactionsRepository) { }
 
-  async execute(id_user: string, id_transaction: string): Promise<void> {
-    const transaction = await this.transactionRepository.findById(id_transaction)
-
-    if (!transaction || transaction.id_user !== id_user) throw new AppError(TRANSACTION_ERRORS.NOT_FOUND, 404)
-
+  async execute(id_transaction: string): Promise<void> {
     this.transactionRepository.deleteById(id_transaction)
   }
 }

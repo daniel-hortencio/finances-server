@@ -17,7 +17,7 @@ class CreateTransactionController {
       type,
       currency,
       date,
-      id_category
+      id_category = ""
     } = req.body
     const { id_user } = req.auth
 

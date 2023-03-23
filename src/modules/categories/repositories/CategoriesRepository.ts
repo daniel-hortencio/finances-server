@@ -18,6 +18,7 @@ class CategoriesRepository implements ICategoriesRepository {
     this.allCategories = await knex(this.table_name)
       .where('id_user', id_user)
       .select()
+      .orderBy('name', 'asc')
 
     return this.allCategories
   }

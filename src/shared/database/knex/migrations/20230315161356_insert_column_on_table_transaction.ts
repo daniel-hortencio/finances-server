@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema
     .alterTable(table_name, table => {
       table.uuid('id_user').references('id_user').inTable('user').notNullable().index();
-      table.uuid('id_category');
+      table.string('id_category');
     })
 }
 

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { FindUserByIdUseCase } from '../../../users/useCases/FindById/FindUserByIdUseCase';
 
 import { ListCategoriesByUserIdUseCase } from "./ListCategoriesByUserIdUseCase";
 
@@ -13,9 +12,6 @@ export interface ListCategoriesByUserIdRequest extends Request {
 class ListCategoriesByUserIdController {
   async handle(req: ListCategoriesByUserIdRequest, res: Response): Promise<any> {
     const { id_user } = req.auth
-
-    const findUserByIdUseCase = container.resolve(FindUserByIdUseCase)
-    await findUserByIdUseCase.execute(id_user)
 
     const listCategoriesByUserIdUseCase = container.resolve(ListCategoriesByUserIdUseCase)
 

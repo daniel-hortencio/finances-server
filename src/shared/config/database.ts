@@ -1,5 +1,18 @@
 import { knex as setupKnex, Knex } from 'knex'
+import Postgres from 'pg'
 import { Environments } from './environments'
+
+Postgres.types.setTypeParser(Postgres.types.builtins.INT8, (value: any) => {
+  return parseInt(value, 10);
+});
+
+Postgres.types.setTypeParser(Postgres.types.builtins.FLOAT8, (value: any) => {
+  return parseFloat(value);
+});
+
+Postgres.types.setTypeParser(Postgres.types.builtins.NUMERIC, (value: any) => {
+  return parseFloat(value);
+});
 
 export const database_config: Knex.Config = {
   client: 'pg',

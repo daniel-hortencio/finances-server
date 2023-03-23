@@ -17,12 +17,8 @@ class UpdateExchangeUseCase {
     input_currency,
     output_value,
     output_currency,
-    date,
-    id_user
+    date
   }: IUpdateExchangeDTO): Promise<void> {
-    const exchange = await this.exchange_repository.findById(id_exchange)
-
-    if (!exchange || exchange.id_user !== id_user) throw new AppError(EXCHANGE_ERRORS.NOT_FOUND, 404)
     this.exchange_repository.update(
       id_exchange,
       {

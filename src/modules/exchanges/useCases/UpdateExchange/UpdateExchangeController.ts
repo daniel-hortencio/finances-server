@@ -28,8 +28,7 @@ class UpdateExchangeController {
       input_currency,
       output_value,
       output_currency,
-      date,
-      id_user
+      date
     })
 
     return res.status(201).send()

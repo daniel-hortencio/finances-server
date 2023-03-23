@@ -14,8 +14,6 @@ class UpdateUserController {
     } = req.body
     const { id_user } = req.auth
 
-    console.log({ req })
-
     const updateUserInfosUseCase = container.resolve(UpdateUserInfosUseCase)
 
     await updateUserInfosUseCase.execute(id_user,

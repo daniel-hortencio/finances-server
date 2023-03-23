@@ -18,25 +18,9 @@ class UpdateTransactionUseCase {
       type,
       currency,
       date,
-      id_user,
       id_transaction,
       id_category
     }: IUpdateTransactionDTO): Promise<void> {
-
-    console.log({
-      description,
-      value,
-      type,
-      currency,
-      date,
-      id_user,
-      id_transaction,
-      id_category
-    })
-
-    const transaction = await this.transaction_repository.findById(id_transaction)
-
-    if (!transaction || transaction.id_user !== id_user) throw new AppError(TRANSACTION_ERRORS.NOT_FOUND, 404)
 
     this.transaction_repository.update(id_transaction, {
       description,

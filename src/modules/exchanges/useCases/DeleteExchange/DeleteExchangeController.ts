@@ -18,7 +18,7 @@ class CreateExchangeController {
 
     const deleteExchangeUseCase = container.resolve(DeleteExchangeUseCase)
 
-    await deleteExchangeUseCase.execute(id_user, id_exchange)
+    await deleteExchangeUseCase.execute(id_exchange)
 
     return res.status(201).send()
   }

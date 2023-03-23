@@ -20,13 +20,11 @@ class UpdateUserController {
       type
     } = req.body
 
-    const { id_user } = req.auth
     const { id_category } = req.params
 
     const updateUserUseCase = container.resolve(UpdateUserUseCase)
 
     await updateUserUseCase.execute(
-      id_user,
       id_category,
       {
         name,

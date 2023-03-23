@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { ITransactionsRepository } from "../../repositories/implementations/ITransactionsRepository";
-import { IGetTransactionDTO, IGetMovementsDTO } from 'modules/transactions/dtos/IGetTransactionDTO';
+import { IGetMovementsDTO } from 'modules/transactions/dtos/IGetTransactionDTO';
 import { IExchangesRepository } from 'modules/exchanges/repositories/implementations/IExchangesRepository';
 
 @injectable()

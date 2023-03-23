@@ -63,18 +63,6 @@ class TransactionsRepository implements ITransactionsRepository {
       id_category = undefined
     }: IUpdateTransactionDTO) {
 
-    console.log("Repositório:", {
-      id_transaction,
-
-      description,
-      currency,
-      type,
-      value,
-      date,
-      id_category
-
-    })
-
     await knex(this.table_name)
       .where('id_transaction', id_transaction)
       .update({

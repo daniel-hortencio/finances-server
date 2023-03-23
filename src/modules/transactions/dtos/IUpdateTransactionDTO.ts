@@ -7,7 +7,6 @@ type IUpdateTransactionDTO = {
   type: TransactionType;
   currency: Currency
   date: string;
-  id_user: string;
   id_transaction: string;
   id_category?: string;
 }
